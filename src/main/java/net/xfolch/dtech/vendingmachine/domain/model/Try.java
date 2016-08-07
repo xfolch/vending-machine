@@ -1,5 +1,6 @@
 package net.xfolch.dtech.vendingmachine.domain.model;
 
+import java.text.MessageFormat;
 import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.function.Predicate;
@@ -119,6 +120,11 @@ public abstract class Try<T> {
         private static <R> Try<R> flat(Try<? extends Try<? extends R>> mapping) {
             return Try.that(() -> mapping.getOrThrowException().getOrThrowException());
         }
+
+        @Override
+        public String toString() {
+            return "Success(" + value + ")";
+        }
     }
 
     private static final class Failure<T> extends Try<T> {
@@ -182,6 +188,13 @@ public abstract class Try<T> {
         @Override
         public Try<T> recoverWith(java.util.function.Function<Exception, Try<T>> recover) {
             return recover.apply(e);
+        }
+
+        @Override
+        public String toString() {
+            return MessageFormat.format("Failure({0}(\"{1}\"))",
+                    e.getClass().getSimpleName(),
+                    e.getMessage());
         }
     }
 

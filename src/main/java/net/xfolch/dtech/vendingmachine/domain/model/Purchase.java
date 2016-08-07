@@ -84,6 +84,8 @@ public final class Purchase {
 
     @Override
     public String toString() {
-        return MessageFormat.format("Purchase({0}, {1})", product, remaining.stream().map(Objects::toString).collect(joining(", ")));
+        return MessageFormat.format("Purchase({0}, Change({1}))",
+                product,
+                remaining.stream().map(Objects::toString).collect(joining(", ")));
     }
 }

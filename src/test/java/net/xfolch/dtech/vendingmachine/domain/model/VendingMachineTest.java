@@ -99,6 +99,33 @@ public class VendingMachineTest extends DomainTest {
     }
 
     @Test
+    public void decrement_units_when_selecting_products() {
+
+        VendingMachine vendingMachine = niceSupplier.newVendingMachine()
+                .addProduct(Coke, 1)
+                .build();
+
+        Try<Purchase> firstPurchase = vendingMachine
+                .insertCoin(Coin.FIFTY_CENTS)
+                .insertCoin(Coin.ONE_EURO)
+                .selectProduct(Coke.getId());
+
+        softly.assertThat(firstPurchase.isSuccess()).isTrue();
+        softly.assertThat(firstPurchase.getOrThrowRuntimeException().getProduct()).isEqualTo(Coke);
+        softly.assertThat(firstPurchase.getOrThrowRuntimeException().getRemaining()).isEmpty();
+
+        Try<Purchase> secondPurchase = vendingMachine
+                .insertCoin(Coin.FIFTY_CENTS)
+                .insertCoin(Coin.ONE_EURO)
+                .selectProduct(Coke.getId());
+
+        softly.assertThat(secondPurchase.isSuccess()).isFalse();
+        softly.assertThatThrownBy(secondPurchase::getOrThrowException)
+                .isInstanceOf(ProductNotAvailable.class)
+                .hasMessageContaining(Coke.getId().toString());
+    }
+
+    @Test
     public void select_product_but_not_returns_change_because_it_has_not_enough_cash() {
 
         // no initial cash
@@ -141,7 +168,7 @@ public class VendingMachineTest extends DomainTest {
     }
 
     @Test
-    public void in_first_purchase_returns_change_but_in_second_one_cannot() {
+    public void in_first_purchase_returns_change_but_not_in_second_one() {
 
         VendingMachine vendingMachine = niceSupplier.newVendingMachine()
                 .addProduct(Coke, 2)

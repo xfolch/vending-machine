@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.Objects;
 
+import static java.math.BigDecimal.ROUND_FLOOR;
+
 /**
  * Immutable class that represents a product that a vending machine holds
  * <p>
@@ -25,7 +27,7 @@ public final class Product {
         this.id = id;
         this.name = name;
         this.units = units;
-        this.price = price;
+        this.price = price.setScale(2, ROUND_FLOOR);
     }
 
     public Integer getId() {

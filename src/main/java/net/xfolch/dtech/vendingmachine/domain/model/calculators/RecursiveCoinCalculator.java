@@ -34,10 +34,10 @@ abstract class RecursiveCoinCalculator implements CoinCalculator {
 
     @Override
     public List<Coin> change(List<Coin> cash, BigDecimal remaining) {
-        return changeRec(sortedIterator(cash), remaining, emptyList());
+        return changeRec(sort(cash), remaining, emptyList());
     }
 
-    abstract List<Coin> sortedIterator(List<Coin> cash);
+    abstract List<Coin> sort(List<Coin> cash);
 
     private List<Coin> changeRec(List<Coin> cash, BigDecimal remaining, List<Coin> change) {
         if (isZero(remaining) || cash.isEmpty()) {

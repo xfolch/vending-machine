@@ -19,7 +19,7 @@ final class LowestValuedCoinCalculator extends RecursiveCoinCalculator {
     }
 
     @Override
-    List<Coin> sortedIterator(List<Coin> cash) {
+    List<Coin> sort(List<Coin> cash) {
         List<Coin> defensiveCopy = new ArrayList<>(cash);
         defensiveCopy.sort((c1, c2) -> c1.value().compareTo(c2.value()));
 

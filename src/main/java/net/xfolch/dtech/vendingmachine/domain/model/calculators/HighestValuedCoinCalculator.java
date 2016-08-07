@@ -19,7 +19,7 @@ final class HighestValuedCoinCalculator extends RecursiveCoinCalculator {
     }
 
     @Override
-    List<Coin> sortedIterator(List<Coin> cash) {
+    List<Coin> sort(List<Coin> cash) {
         List<Coin> defensiveCopy = new ArrayList<>(cash);
         defensiveCopy.sort((c1, c2) -> c2.value().compareTo(c1.value()));
 

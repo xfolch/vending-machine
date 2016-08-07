@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Vending machine module that contains not only consumer services but also
- * configuration services represented by the builder and its own errors
+ * configuration services represented by the builder as well as its own set of failures
  * <p>
  * Created by xfolch on 7/8/16.
  */

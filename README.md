@@ -42,3 +42,13 @@ When a user finally selects a product after inserting some coins, the vending ma
 - **Package-private access**
 
     This design decision restricts the access to the implementation classes. Only the factories are public and are the ultimate responsible for dealing with implementation classes
+
+## Execution
+
+You can build the project by running:
+
+```
+./gradlew build
+```
+
+This automatically downloads Gradle and builds the project, including running the tests.

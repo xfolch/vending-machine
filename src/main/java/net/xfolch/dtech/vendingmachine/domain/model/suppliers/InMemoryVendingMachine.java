@@ -15,7 +15,7 @@ import static java.util.stream.Collectors.*;
  * Implementation of the vending machine that maintains the state in memory.
  * <p>
  * Each action mutates the state, which means that this approach is not thread-safe
- * but is not important in this domain
+ * but does not matter in this domain
  * <p>
  * Created by xfolch on 7/8/16.
  */

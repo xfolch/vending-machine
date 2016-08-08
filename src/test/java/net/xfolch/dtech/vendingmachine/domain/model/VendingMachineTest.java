@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static java.util.Collections.singletonList;
 
@@ -96,6 +97,22 @@ public class VendingMachineTest extends DomainTest {
         softly.assertThat(purchase.isSuccess()).isTrue();
         softly.assertThat(purchase.getOrThrowRuntimeException().getProduct()).isEqualTo(Coke);
         softly.assertThat(purchase.getOrThrowRuntimeException().getRemaining()).isEmpty();
+    }
+
+    @Test
+    public void insert_coins_but_cancel_in_the_end() {
+
+        VendingMachine vendingMachine = niceSupplier.newVendingMachine()
+                .addProduct(Coke, 1)
+                .build();
+
+        List<Coin> refund = vendingMachine
+                .insertCoin(Coin.FIFTY_CENTS)
+                .insertCoin(Coin.TEN_CENTS)
+                .insertCoin(Coin.TWENTY_CENTS)
+                .cancel();
+
+        softly.assertThat(refund).containsExactly(Coin.FIFTY_CENTS, Coin.TEN_CENTS, Coin.TWENTY_CENTS);
     }
 
     @Test

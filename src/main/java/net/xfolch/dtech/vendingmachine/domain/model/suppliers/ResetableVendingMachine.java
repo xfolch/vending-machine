@@ -8,12 +8,11 @@ import net.xfolch.dtech.vendingmachine.domain.model.VendingMachine;
 import java.util.List;
 
 /**
- * Represents a vending machine that can be reset. Reset action means that vending machine
- * return to the original state
+ * Represents a vending machine that can be reset. Reset action means that this vending machine
+ * returns to the original state.
  * <p>
  * It is important that the builder got by factory method be immutable. Otherwise, this approach
- * would not work. In our domain model we guarantees that, and that is the reason why this
- * class is package-private
+ * would not work. In our domain model we guarantees that.
  * <p>
  * Created by xfolch on 7/8/16.
  */

@@ -17,16 +17,14 @@ public final class Product {
 
     private final Integer id;
     private final String name;
-    private final Integer units;
     private final BigDecimal price;
 
     /**
      * Owns the construction of its instances by means of the builder
      */
-    private Product(Integer id, String name, Integer units, BigDecimal price) {
+    private Product(Integer id, String name, BigDecimal price) {
         this.id = id;
         this.name = name;
-        this.units = units;
         this.price = price.setScale(2, ROUND_FLOOR);
     }
 
@@ -38,10 +36,6 @@ public final class Product {
         return name;
     }
 
-    public Integer getUnits() {
-        return units;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
@@ -50,21 +44,12 @@ public final class Product {
         return new Builder();
     }
 
-    public Builder copy() {
-        return builder()
-                .setId(id)
-                .setName(name)
-                .setUnits(units)
-                .setPrice(price);
-    }
-
     /**
      * Mutable builder pattern to construct a Product instance
      */
     public static final class Builder {
         private Integer id;
         private String name;
-        private Integer units;
         private BigDecimal price;
 
         private Builder() {
@@ -85,13 +70,8 @@ public final class Product {
             return this;
         }
 
-        public Builder setUnits(Integer units) {
-            this.units = units;
-            return this;
-        }
-
         public Product build() {
-            return new Product(id, name, units, price);
+            return new Product(id, name, price);
         }
     }
 

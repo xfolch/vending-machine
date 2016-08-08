@@ -19,4 +19,26 @@ Thinking about what a vending machine is and how it works we realize that a user
 
 Taking a look at the reset operation. The exercise statement says that this action belongs to the supplier, and makes sense. Remembering the SRP, which states that a software module must have only one reason to change, if we add this operation into the vending machine contract we are going to violate it, because there would be two different sort of users consuming the same module. For that reason, I have created the `Resetable` trait within the supplier module, and add an action in the `Supplier` api to let them to reset a vending machine. 
 
-When a user finally selects a product after inserting some coins, the vending machine has to do calculations to figure out how many coins has to give in return. This sort of calculations should be decoupled in their own modules, and later be used by the vending machine following the DIP. In turn, the vending machine approach will fulfill the Open/Closed Principle, because the same implementation could be extended by another implementation of the `CoinCalculator`   
+When a user finally selects a product after inserting some coins, the vending machine has to do calculations to figure out how many coins has to give in return. This sort of calculations should be decoupled in their own modules, and later be used by the vending machine following the DIP. In turn, the vending machine approach will fulfill the Open/Closed Principle, because the same implementation could be extended by another implementation of the `CoinCalculator`
+   
+### Some thoughts
+
+- **Working with immutable objects**
+
+    Apart from my decision about designing vending machine as mutable objects, the rest of my approach embraces immutability at large. This decision helps me not only to maintain the state, but also in debugging.
+
+- **Collection java libraries are not cool**
+
+    I had to make defensive copies all the time to guarantees the immutability. It is not ideal in terms of performance, but lets me to maintain the immutability    
+
+- **Using factory methods instead of constructors as much as possible**
+
+    The main advantage of factory methods is that you can name them, which eases the readability of your code and reveals intention. On the other hand, factory method lets you to return whatever you want. That means you can return a new instance, a singleton instance or a monad such as `Optional` or `Try`.
+
+- **Decorator pattern is your friend**
+
+    Decorator pattern as a design approach for inheritance lets the code be much simpler.
+    
+- **Package-private access**
+
+    This design decision restricts the access to the implementation classes, which should be obtained by their factories 

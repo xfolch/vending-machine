@@ -41,7 +41,7 @@ When a user finally selects a product after inserting some coins, the vending ma
     
 - **Package-private access**
 
-    This design decision restricts the access to the implementation classes. Only the factories are public and are the single entry point where to get implementation instances
+    This design decision restricts the access to the implementation classes. Only the factories are public and are the single entry point where to get domain implementations
 
 ## Execution
 

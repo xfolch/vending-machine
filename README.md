@@ -29,7 +29,7 @@ When a user finally selects a product after inserting some coins, the vending ma
 
 - **Collection java libraries are not cool**
 
-    I had to make defensive copies all the time to guarantees the immutability. It is not ideal in terms of performance, but lets me to get my model immutable.    
+    I had to make defensive copies all the time to guarantees the immutability. It is not ideal in terms of performance, but lets me to keep my model immutable.    
 
 - **Using factory methods instead of constructors as much as possible**
 

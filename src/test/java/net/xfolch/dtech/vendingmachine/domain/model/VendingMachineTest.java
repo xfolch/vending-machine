@@ -116,6 +116,28 @@ public class VendingMachineTest extends DomainTest {
     }
 
     @Test
+    public void cancel_operation_and_then_select_a_product_returns_exception() {
+
+        VendingMachine vendingMachine = niceSupplier.newVendingMachine()
+                .addProduct(Coke, 1)
+                .build();
+
+        List<Coin> refund = vendingMachine
+                .insertCoin(Coin.FIFTY_CENTS)
+                .insertCoin(Coin.ONE_EURO)
+                .cancel();
+
+        softly.assertThat(refund).containsExactly(Coin.FIFTY_CENTS, Coin.ONE_EURO);
+
+        Try<Purchase> purchase = vendingMachine.selectProduct(Coke.getId());
+
+        softly.assertThat(purchase.isSuccess()).isFalse();
+        softly.assertThatThrownBy(purchase::getOrThrowException)
+                .isInstanceOf(NotEnoughCredit.class)
+                .hasMessageContaining(Coke.getId().toString());
+    }
+
+    @Test
     public void decrement_units_when_selecting_products() {
 
         VendingMachine vendingMachine = niceSupplier.newVendingMachine()

@@ -8,7 +8,7 @@ import net.xfolch.dtech.vendingmachine.domain.model.VendingMachine;
 import java.util.List;
 
 /**
- * Represents a vending machine that can be reset. Reset action means that this vending machine
+ * Represents a vending machine that can be reset. Reset action means that a vending machine
  * returns to the original state.
  * <p>
  * It is important that the builder got by factory method be immutable. Otherwise, this approach

@@ -17,7 +17,7 @@ The exercise proposed is to design a **Vending Machine** which:
 
 Thinking about what a vending machine is and how it works I realized that when a user begins an operation no one else performs any action until they finish such operation. On the one hand, it means that I should not worry about concurrency. On the other hand, the design must reflect such behavior, so my vending machine instances are mutable.
 
-Taking a look at the reset operation, the exercise statement claims that this action belongs to the supplier, and it makes sense. So, adding this operation into the vending machine contract would violate the SRP. Remembering what SRP says: a software module must have only one reason to change. That means the module must have only one "changer". In this case, the consumer and the supplier are two different "changer". For that reason, I created the `Resetable` trait within the supplier module, and added an action into `Supplier` API to let them, as owners of the domain, be able to reset a vending machine. 
+Taking a look at the reset operation, the exercise statement claims that this action belongs to the supplier, and it makes sense. So, adding this operation into the vending machine contract would violate the SRP. Remembering what SRP says: a software module must have only one reason to change. That means the module must have only one "changer". In this case, the consumer and the supplier are two different "changer". For that reason, I created the `Resetable` trait within the supplier module, and added an action into `Supplier` API that let them, as owners of the domain, to be able to reset a vending machine. 
 
 When a user finally selects a product after inserting some coins, the vending machine has to do some calculations to figure out how many coins has to give in return. This sort of calculations should be decoupled from the vending machine and go in their own modules. In turn, embracing this approach makes the vending machine fulfills the Open/Closed Principle, since mixing different implementations of `CoinCalculator` could extend the vending machine behavior.
    
@@ -29,7 +29,7 @@ When a user finally selects a product after inserting some coins, the vending ma
 
 - **Collection java libraries are not cool**
 
-    I had to make defensive copies all the time to guarantees the immutability. It is not ideal in terms of performance, but lets me to keep my model immutable.    
+    I have had to make defensive copies all the time to guarantee immutability in my domain. It is not ideal in terms of performance, but lets me to keep my model immutable.    
 
 - **Using factory methods instead of constructors as much as possible**
 
